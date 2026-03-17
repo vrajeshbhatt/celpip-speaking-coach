@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CELPIP Speaking Coach — AI-Powered Test Preparation</title>
+  <meta name="description" content="Practice CELPIP Speaking test with AI-powered scoring, real-time speech analysis, and actionable feedback. Achieve CLB 10+ scores.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <h1>CELPIP Speaking Coach</h1>
+    <p class="subtitle">AI-powered speaking test preparation — target CLB 10+</p>
+    <div id="healthBadge" class="health-badge">
+      <span class="health-dot"></span>
+      <span id="healthText">Connecting...</span>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="nav-tabs" id="navTabs">
+    <button class="nav-tab active" data-view="practice" onclick="switchView('practice')">Practice</button>
+    <button class="nav-tab" data-view="fulltest" onclick="switchView('fulltest')">Full Test</button>
+    <button class="nav-tab" data-view="history" onclick="switchView('history')">History</button>
+    <button class="nav-tab" data-view="progress" onclick="switchView('progress')">Progress</button>
+  </nav>
+
+  <!-- ============ PRACTICE VIEW ============ -->
+  <section id="practiceView">
+    <!-- Task Selection -->
+    <div id="taskSelection">
+      <h2 style="margin-bottom: 16px;">Choose a Speaking Task</h2>
+      <div class="task-grid" id="taskGrid"></div>
+    </div>
+
+    <!-- Active Task -->
+    <div id="activeTask" class="test-view">
+      <!-- Preparation Phase -->
+      <div id="prepPhase" class="test-phase">
+        <p class="test-phase-label">Preparation</p>
+        <h2 class="test-task-name" id="activeTaskName"></h2>
+        <div class="scenario-box" id="scenarioBox"></div>
+        
+        <div class="tips-box" id="tipsBox">
+          <h4>💡 Tips for this task</h4>
+          <ul id="tipsList"></ul>
+        </div>
+
+        <div class="timer-container" id="prepTimer">
+          <svg class="timer-ring" width="180" height="180" viewBox="0 0 180 180">
+            <circle class="timer-ring-bg" cx="90" cy="90" r="78"/>
+            <circle class="timer-ring-progress" id="prepRingProgress" cx="90" cy="90" r="78"
+                    stroke-dasharray="490" stroke-dashoffset="0"/>
+          </svg>
+          <div class="timer-text">
+            <div class="timer-seconds" id="prepSeconds">30</div>
+            <div class="timer-label">Prepare</div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-secondary" onclick="cancelTask()">← Back</button>
+          <button class="btn btn-primary" id="startRecordingBtn" onclick="startRecordingEarly()">Start Speaking Now</button>
+        </div>
+      </div>
+
+      <!-- Recording Phase -->
+      <div id="recordPhase" class="test-phase hidden">
+        <p class="test-phase-label">Recording</p>
+        <h2 class="test-task-name" id="recordTaskName"></h2>
+        <div class="scenario-box" id="recordScenarioBox"></div>
+        
+        <div class="recording-indicator active" id="recIndicator">
+          <span class="rec-dot"></span>
+          Recording...
+        </div>
+
+        <div class="timer-container" id="recordTimer">
+          <svg class="timer-ring" width="180" height="180" viewBox="0 0 180 180">
+            <circle class="timer-ring-bg" cx="90" cy="90" r="78"/>
+            <circle class="timer-ring-progress" id="recordRingProgress" cx="90" cy="90" r="78"
+                    stroke-dasharray="490" stroke-dashoffset="0"/>
+          </svg>
+          <div class="timer-text">
+            <div class="timer-seconds" id="recordSeconds">90</div>
+            <div class="timer-label">Speak</div>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-danger" onclick="stopRecordingEarly()">Stop & Analyze</button>
+        </div>
+      </div>
+
+      <!-- Results Phase -->
+      <div id="resultsPhase" class="test-phase hidden">
+        <div id="resultsContent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FULL TEST VIEW ============ -->
+  <section id="fulltestView" class="hidden">
+    <div class="card text-center" style="padding: 48px 24px;">
+      <h2>Full Test Simulation</h2>
+      <p class="subtitle" style="margin: 12px 0 24px; color: var(--text-secondary);">
+        Complete all 8 CELPIP Speaking tasks back-to-back with official timing (~20 minutes)
+      </p>
+      <button class="btn btn-primary" onclick="startFullTest()">Start Full Test</button>
+    </div>
+  </section>
+
+  <!-- ============ HISTORY VIEW ============ -->
+  <section id="historyView" class="hidden">
+    <h2 style="margin-bottom: 16px;">Practice History</h2>
+    <div id="historyList" class="history-list">
+      <div class="progress-empty">
+        <div class="icon">📋</div>
+        <p>No practice sessions yet. Start practicing to see your history!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROGRESS VIEW ============ -->
+  <section id="progressView" class="hidden">
+    <h2 style="margin-bottom: 16px;">Your Progress</h2>
+    <div id="progressContent">
+      <div class="progress-empty">
+        <div class="icon">📊</div>
+        <p>Complete some practice sessions to track your progress over time!</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Analyzing Overlay -->
+<div class="analyzing-overlay" id="analyzingOverlay">
+  <div class="spinner"></div>
+  <div class="analyzing-text" id="analyzingText">Analyzing your speech...</div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
