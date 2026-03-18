@@ -27,6 +27,7 @@
   <nav class="nav-tabs" id="navTabs">
     <button class="nav-tab active" data-view="practice" onclick="switchView('practice')">Practice</button>
     <button class="nav-tab" data-view="fulltest" onclick="switchView('fulltest')">Full Test</button>
+    <button class="nav-tab" data-view="guidance" onclick="switchView('guidance')">Test Guide</button>
     <button class="nav-tab" data-view="history" onclick="switchView('history')">History</button>
     <button class="nav-tab" data-view="progress" onclick="switchView('progress')">Progress</button>
   </nav>
@@ -130,6 +131,59 @@
         <div class="icon">📋</div>
         <p>No practice sessions yet. Start practicing to see your history!</p>
       </div>
+    </div>
+  </section>
+
+  <!-- ============ GUIDANCE VIEW ============ -->
+  <section id="guidanceView" class="hidden">
+    <h2 style="margin-bottom: 16px;">Test Guidance & Strategies</h2>
+    
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="margin-bottom: 12px; color: var(--accent-primary);">Format & Structure</h3>
+      <p style="color: var(--text-secondary); line-height: 1.6;">
+        The CELPIP Speaking test consists of 8 tasks and takes about 20 minutes to complete. 
+        You speak into a microphone and your responses are recorded and evaluated by human raters.
+      </p>
+      <ul style="margin-top: 12px; margin-left: 20px; color: var(--text-secondary); line-height: 1.6;">
+        <li><strong>Task 1:</strong> Giving Advice (90 seconds to speak)</li>
+        <li><strong>Task 2:</strong> Talking about a Personal Experience (60 seconds)</li>
+        <li><strong>Task 3:</strong> Describing a Scene (60 seconds)</li>
+        <li><strong>Task 4:</strong> Making Predictions (60 seconds)</li>
+        <li><strong>Task 5:</strong> Comparing and Persuading (60 seconds)</li>
+        <li><strong>Task 6:</strong> Dealing with a Difficult Situation (60 seconds)</li>
+        <li><strong>Task 7:</strong> Expressing Opinions (90 seconds)</li>
+        <li><strong>Task 8:</strong> Describing an Unusual Situation (60 seconds)</li>
+      </ul>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="margin-bottom: 12px; color: var(--accent-primary);">How You Are Evaluated</h3>
+      <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px;">CELPIP Raters score your speaking across 4 distinct dimensions:</p>
+      <div style="display: grid; gap: 12px;">
+        <div style="background: var(--bg-glass); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--text-primary);">Content/Coherence:</strong> Number of ideas, quality of descriptions, and logical flow of information.
+        </div>
+        <div style="background: var(--bg-glass); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--text-primary);">Vocabulary:</strong> Range of words, precision (using the exact right word), and natural phrasing.
+        </div>
+        <div style="background: var(--bg-glass); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--text-primary);">Listenability:</strong> Intonation, rhythm, pronunciation, pauses, and absence of filler words ("um," "uh").
+        </div>
+        <div style="background: var(--bg-glass); padding: 12px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <strong style="color: var(--text-primary);">Task Fulfillment:</strong> Did you answer all parts of the prompt? Was your tone appropriate for the situation?
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 24px; border-color: var(--accent-warning);">
+      <h3 style="margin-bottom: 12px; color: var(--accent-warning);">How to Achieve CLB 10+</h3>
+      <ul class="feedback-list improvements" style="margin-top: 12px;">
+        <li>Use complex sentence structures (conditionals, relative clauses) rather than just simple sentences.</li>
+        <li>Eliminate filler words completely. Speak at a steady, uninterrupted pace.</li>
+        <li>Use highly specific vocabulary (e.g., "devastated" instead of "very sad", "bustling" instead of "busy").</li>
+        <li>Ensure smooth transitions and explicit signposting ("First of all", "However", "Consequently").</li>
+        <li>Speak naturally with emotion and dynamic intonation—avoid sounding like a robot.</li>
+      </ul>
     </div>
   </section>
 
