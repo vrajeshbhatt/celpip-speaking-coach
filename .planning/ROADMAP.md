@@ -90,6 +90,16 @@
 4. Per-dimension progress tracked separately
 5. Overall coaching dashboard shows improvement areas
 
+### Phase 7: Comprehensive CELPIP Tasks and Analysis Upgrades
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 6
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 7 to break down)
+
 ---
 *Roadmap created: 2026-03-17*
 *Last updated: 2026-03-17 after initial creation*
