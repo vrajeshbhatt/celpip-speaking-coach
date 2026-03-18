@@ -155,6 +155,12 @@ async def get_all_tasks():
     return {"tasks": CELPIP_TASKS}
 
 
+@app.get("/api/tasks/full-test")
+async def get_full_test():
+    """Get all 8 tasks for a full test simulation."""
+    from data.celpip_tasks import get_full_test_sequence
+    return {"tasks": get_full_test_sequence()}
+
 @app.get("/api/tasks/{task_number}")
 async def get_task(task_number: int):
     """Get a specific CELPIP speaking task with a random prompt."""
@@ -163,13 +169,6 @@ async def get_task(task_number: int):
     if not task:
         raise HTTPException(status_code=404, detail=f"Task {task_number} not found")
     return task
-
-
-@app.get("/api/tasks/full-test")
-async def get_full_test():
-    """Get all 8 tasks for a full test simulation."""
-    from data.celpip_tasks import get_full_test_sequence
-    return {"tasks": get_full_test_sequence()}
 
 
 @app.post("/api/tasks/generate")
