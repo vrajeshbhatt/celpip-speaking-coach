@@ -1,7 +1,7 @@
-﻿import random
+import random
 from prompts_generator import generator
 """
-CELPIP Speaking Coach â€” Main Application
+CELPIP Speaking Coach — Main Application
 FastAPI backend with audio recording, transcription, and speech analysis.
 """
 
@@ -108,7 +108,7 @@ async def lifespan(app: FastAPI):
     print("=" * 55)
     yield
     # Shutdown
-    print("CELPIP Speaking Coach â€” Shutting down")
+    print("CELPIP Speaking Coach — Shutting down")
 
 
 # ---------------------------------------------------------------------------
@@ -251,7 +251,7 @@ async def upload_audio(audio: UploadFile = File(...), task_type: str = "practice
             print(f"[WARN] Transcription error: {e}")
             transcript = "[Transcription failed]"
     else:
-        transcript = "[Whisper model not loaded â€” install faster-whisper]"
+        transcript = "[Whisper model not loaded — install faster-whisper]"
     
     # Analyze speech
     analysis = {}

@@ -1,5 +1,5 @@
-﻿/**
- * CELPIP Speaking Coach â€” Frontend Application
+/**
+ * CELPIP Speaking Coach — Frontend Application
  * Handles task flow, audio recording, timer, and results display.
  */
 
@@ -40,10 +40,10 @@ async function checkHealth() {
     const text = document.getElementById('healthText');
 
     if (data.whisper_loaded) {
-      text.textContent = `Ready â€” Whisper ${data.whisper_model}`;
+      text.textContent = `Ready — Whisper ${data.whisper_model}`;
       badge.classList.remove('error');
     } else {
-      text.textContent = 'Whisper not loaded â€” limited mode';
+      text.textContent = 'Whisper not loaded — limited mode';
       badge.classList.add('error');
     }
   } catch (e) {
@@ -95,13 +95,13 @@ function renderTaskGrid() {
   const grid = document.getElementById('taskGrid');
   let html = state.tasks.map(task => `
     <div class="task-card ${task.is_practice ? 'practice-task' : ''}" onclick="selectTask(${task.number})">
-      <div class="task-number">${task.number === 0 ? 'ðŸŽ¯' : task.number}</div>
+      <div class="task-number">${task.number === 0 ? '🏆' : task.number}</div>
       <div class="task-name">${task.name}</div>
       <div class="task-desc">${task.description}</div>
       <div class="task-timing">
         ${task.is_practice ? '<span class="practice-badge">UNSCORED</span>' : ''}
-        <span>â± ${task.prep_time}s prep</span>
-        <span>ðŸŽ¤ ${task.response_time}s speak</span>
+        <span>⏱ ${task.prep_time}s prep</span>
+        <span>🎤 ${task.response_time}s speak</span>
       </div>
     </div>
   `).join('');
@@ -123,8 +123,23 @@ function renderTaskGrid() {
   // NEW: Populate dropdown selector
   const select = document.getElementById('taskSelect');
   if (select) {
-    select.innerHTML = '<option value="" disabled selected>Quick Select Task...</option>' + 
-      state.tasks.map(task => `<option value="${task.number}">${task.number === 0 ? 'Practice' : 'Task ' + task.number}: ${task.name}</option>`).join('');
+    let options = '<option value="" disabled selected>Quick Select Task...</option>';
+    
+    // Add all available tasks
+    options += state.tasks.filter(t => t.number !== 0).map(task => 
+      `<option value="${task.number}">Task ${task.number}: ${task.name}</option>`
+    ).join('');
+    
+    // Add practice task if exists
+    const practiceTask = state.tasks.find(t => t.number === 0);
+    if (practiceTask) {
+      options += `<optgroup label="Related / Warm-up"><option value="0">Practice: ${practiceTask.name}</option></optgroup>`;
+    }
+    
+    // Add fetch option
+    options += '<optgroup label="Actions"><option value="fetch-new">+ Fetch New / Random Tasks</option></optgroup>';
+    
+    select.innerHTML = options;
   }
 }
 
@@ -152,6 +167,14 @@ async function fetchNewTasks() {
 // ============================================================
 async function selectTask(taskNumber) {
   if (taskNumber === "") return;
+  
+  if (taskNumber === "fetch-new") {
+    // Reset dropdown and trigger fetch
+    const select = document.getElementById('taskSelect');
+    if (select) select.value = "";
+    fetchNewTasks();
+    return;
+  }
   
   // Update dropdown if selected via grid
   const select = document.getElementById('taskSelect');
@@ -384,7 +407,7 @@ async function analyzeRecording() {
         state.currentPrompt = state.currentTask.prompt;
         showPrepPhase();
       } else {
-        // Full test complete â€” show summary
+        // Full test complete — show summary
         showFullTestResults();
       }
     } else {
@@ -416,10 +439,10 @@ function showResults(data) {
     <div class="score-dashboard">
       <div class="overall-score">
         <div class="score-circle ${overall >= 10 ? 'score-excellent' : overall >= 7 ? 'score-good' : overall >= 4 ? 'score-fair' : 'score-low'}">
-          <div class="score-value">${isPractice ? 'â€”' : overall.toFixed(1)}</div>
+          <div class="score-value">${isPractice ? '—' : overall.toFixed(1)}</div>
           <div class="score-label">${isPractice ? 'PRACTICE' : 'CELPIP'}</div>
         </div>
-        ${isPractice ? '<div class="clb-badge" style="background: var(--bg-tertiary);">Unscored Warm-Up</div>' : `<div class="clb-badge">CLB ${clb} â€” ${levelLabel}</div>`}
+        ${isPractice ? '<div class="clb-badge" style="background: var(--bg-tertiary);">Unscored Warm-Up</div>' : `<div class="clb-badge">CLB ${clb} — ${levelLabel}</div>`}
         ${scores.level_descriptor ? `<p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.9rem;">${scores.level_descriptor}</p>` : ''}
       </div>
 
@@ -484,7 +507,7 @@ function renderImmediateImprovements(improvements) {
   return `
     <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent-warning); background: rgba(234, 187, 85, 0.05);">
       <h3 style="margin-bottom: 12px; color: var(--accent-warning); display: flex; align-items: center; gap: 8px;">
-        <span>âš¡</span> Immediate Actionable Improvements
+        <span>⚡</span> Immediate Actionable Improvements
       </h3>
       <ul class="feedback-list improvements" style="margin-top: 12px;">
         ${improvements.map(imp => `<li>${imp}</li>`).join('')}
@@ -502,7 +525,7 @@ function renderPriorities(priorities) {
         <div class="priority-item">
           <span class="priority-number">${i + 1}</span>
           <div class="priority-text">
-            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)}/12${p.gap_to_10 ? ` Â· ${p.gap_to_10.toFixed(1)} pts to CLB 10` : ''})</span> â€” ${p.action}
+            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)}/12${p.gap_to_10 ? ` · ${p.gap_to_10.toFixed(1)} pts to CLB 10` : ''})</span> — ${p.action}
           </div>
         </div>
       `).join('')}
@@ -530,7 +553,7 @@ function renderFeedbackCards(feedback) {
         if (!fb) return '';
         return `
           <div class="feedback-card">
-            <h4>${fb.criterion} â€” ${fb.score ? fb.score.toFixed(1) : 'â€”'}/12</h4>
+            <h4>${fb.criterion} — ${fb.score ? fb.score.toFixed(1) : '—'}/12</h4>
             ${fb.detail ? `<p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">${fb.detail}</p>` : ''}
             ${fb.strengths && fb.strengths.length > 0 ? `
               <ul class="feedback-list strengths">
@@ -563,7 +586,7 @@ function renderModelAnswer(answer) {
   if (!answer) return '';
   return `
     <div class="model-answer">
-      <div class="label">âœ¨ Model Answer Structure</div>
+      <div class="label">✨ Model Answer Structure</div>
       <p>${answer}</p>
     </div>
   `;
@@ -801,7 +824,7 @@ async function loadProgress() {
             const current = latestScores[dim] || 0;
             const initial = firstScores[dim] || 0;
             const change = current - initial;
-            const changeText = change > 0 ? `â†‘ ${change.toFixed(1)}` : change < 0 ? `â†“ ${Math.abs(change).toFixed(1)}` : 'â€”';
+            const changeText = change > 0 ? `↑ ${change.toFixed(1)}` : change < 0 ? `↓ ${Math.abs(change).toFixed(1)}` : '—';
             const changeColor = change > 0 ? 'var(--accent-success)' : change < 0 ? 'var(--accent-danger)' : 'var(--text-muted)';
             return `
               <div class="dimension-card">

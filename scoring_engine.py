@@ -181,21 +181,10 @@ DISCOURSE_MARKERS = {
         "taking into account", "with respect to", "as evidenced by",
         "by the same token", "in view of", "to illustrate",
         "it is paramount that", "another significant factor is",
-        "a crucial aspect of", "from my perspective", "this underscores"
-    }
-},
-    "intermediate": {
-        "however", "therefore", "moreover", "although", "furthermore",
-        "in addition", "on the other hand", "for example", "for instance",
-        "as a result", "in my opinion", "i believe", "i think",
-        "first", "second", "third", "firstly", "secondly", "finally"
-    },
-    "advanced": {
-        "nevertheless", "consequently", "notwithstanding", "in contrast",
+        "a crucial aspect of", "from my perspective", "this underscores",
         "on the contrary", "to summarize", "in conclusion", "more importantly",
         "having said that", "that being said", "it is worth noting",
-        "from my perspective", "taking into account", "given that",
-        "with respect to", "in light of", "by the same token"
+        "given that"
     }
 }
 
@@ -222,43 +211,49 @@ def score_response(analysis: dict, transcript: str, task_number: int, prompt: st
     Returns:
         (scores_dict, feedback_dict)
     """
-    # Extract analysis components
-    prosody = analysis.get("prosody", {})
-    fluency = analysis.get("fluency", {})
-    content = analysis.get("content", {})
-    pronunciation = analysis.get("pronunciation", {})
-    audio_features = analysis.get("audio_features", {})
+    try:
+        # Extract analysis components
+        prosody = analysis.get("prosody", {})
+        fluency = analysis.get("fluency", {})
+        content = analysis.get("content", {})
+        pronunciation = analysis.get("pronunciation", {})
+        audio_features = analysis.get("audio_features", {})
 
-    # Check for empty/invalid transcripts or no speech detected
-    speech_ratio = audio_features.get("speech_ratio", 1.0)
-    
-    if not transcript or transcript.startswith("[") or len(transcript.split()) < 3 or speech_ratio < 0.03:
-        err_msg = "This is not eligible to assess. No speech detected or answer invalid."
-        return {"error": True, "status": "rejected", "message": err_msg}, {"error": True, "status": "rejected", "message": err_msg}
-    
-    # Score each dimension (all start from 3.0 base — must EARN higher scores)
-    scores = {}
-    feedback = {}
-    
-    # 1. Content/Coherence (25%)
-    cc_score, cc_feedback = _score_content_coherence(content, fluency, task_number, prompt, transcript)
-    scores["content_coherence"] = cc_score
-    feedback["content_coherence"] = cc_feedback
-    
-    # 2. Vocabulary (25%)
-    vocab_score, vocab_feedback = _score_vocabulary(content, transcript)
-    scores["vocabulary"] = vocab_score
-    feedback["vocabulary"] = vocab_feedback
-    
-    # 3. Listenability (30%)
-    listen_score, listen_feedback = _score_listenability(prosody, fluency, pronunciation)
-    scores["listenability"] = listen_score
-    feedback["listenability"] = listen_feedback
-    
-    # 4. Task Fulfillment (20%)
-    tf_score, tf_feedback = _score_task_fulfillment(content, fluency, task_number, prompt, transcript)
-    scores["task_fulfillment"] = tf_score
-    feedback["task_fulfillment"] = tf_feedback
+        # Check for empty/invalid transcripts or no speech detected
+        speech_ratio = audio_features.get("speech_ratio", 1.0)
+        
+        if not transcript or transcript.startswith("[") or len(transcript.split()) < 3 or speech_ratio < 0.03:
+            err_msg = "This is not eligible to assess. No speech detected or answer invalid."
+            return {"error": True, "status": "rejected", "message": err_msg}, {"error": True, "status": "rejected", "message": err_msg}
+        
+        # Score each dimension (all start from 3.0 base — must EARN higher scores)
+        scores = {}
+        feedback = {}
+        
+        # 1. Content/Coherence (25%)
+        cc_score, cc_feedback = _score_content_coherence(content, fluency, task_number, prompt, transcript)
+        scores["content_coherence"] = cc_score
+        feedback["content_coherence"] = cc_feedback
+        
+        # 2. Vocabulary (25%)
+        vocab_score, vocab_feedback = _score_vocabulary(content, transcript)
+        scores["vocabulary"] = vocab_score
+        feedback["vocabulary"] = vocab_feedback
+        
+        # 3. Listenability (30%)
+        listen_score, listen_feedback = _score_listenability(prosody, fluency, pronunciation)
+        scores["listenability"] = listen_score
+        feedback["listenability"] = listen_feedback
+        
+        # 4. Task Fulfillment (20%)
+        tf_score, tf_feedback = _score_task_fulfillment(content, fluency, task_number, prompt, transcript)
+        scores["task_fulfillment"] = tf_score
+        feedback["task_fulfillment"] = tf_feedback
+
+    except Exception as e:
+        print(f"[WARN] Error in scoring calculations: {e}")
+        err_msg = f"Scoring engine encountered an error: {str(e)}"
+        return {"error": True, "message": err_msg}, {"error": True, "message": err_msg}
     
     # Calculate overall score (weighted average)
     overall = (
