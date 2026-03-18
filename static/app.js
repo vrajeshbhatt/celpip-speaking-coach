@@ -406,6 +406,7 @@ function showResults(data) {
       </div>`}
 
       ${isPractice ? '' : renderBenchmark(feedback.benchmark)}
+      ${isPractice ? '' : renderImmediateImprovements(feedback.immediate_improvements)}
       ${isPractice ? '' : renderPriorities(feedback.priorities)}
       ${isPractice ? '' : renderLevelAdvice(feedback.level_advice)}
       ${isPractice ? '' : renderFeedbackCards(feedback)}
@@ -449,6 +450,20 @@ function renderBenchmark(benchmark) {
     <div class="benchmark-box">
       <div class="target">Target: CLB ${benchmark.target_level}</div>
       <div class="message">${benchmark.message}</div>
+    </div>
+  `;
+}
+
+function renderImmediateImprovements(improvements) {
+  if (!improvements || improvements.length === 0) return '';
+  return `
+    <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent-warning); background: rgba(234, 187, 85, 0.05);">
+      <h3 style="margin-bottom: 12px; color: var(--accent-warning); display: flex; align-items: center; gap: 8px;">
+        <span>⚡</span> Immediate Actionable Improvements
+      </h3>
+      <ul class="feedback-list improvements" style="margin-top: 12px;">
+        ${improvements.map(imp => `<li>${imp}</li>`).join('')}
+      </ul>
     </div>
   `;
 }

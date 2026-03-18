@@ -249,6 +249,12 @@ def score_response(analysis: dict, transcript: str, task_number: int, prompt: st
     # Add level-specific advice
     feedback["level_advice"] = _get_level_advice(scores["overall"])
     
+    # Extract Immediate Actionable Improvements based on the top priorities
+    immediate = []
+    for p in feedback["priorities"]:
+        immediate.append(p["action"])
+    feedback["immediate_improvements"] = immediate
+    
     return scores, feedback
 
 
