@@ -189,14 +189,19 @@ def score_response(analysis: dict, transcript: str, task_number: int, prompt: st
     Returns:
         (scores_dict, feedback_dict)
     """
-    if not transcript or transcript.startswith("["):
-        return _empty_scores(), _empty_feedback("No transcript available for scoring.")
-    
     # Extract analysis components
     prosody = analysis.get("prosody", {})
     fluency = analysis.get("fluency", {})
     content = analysis.get("content", {})
     pronunciation = analysis.get("pronunciation", {})
+    audio_features = analysis.get("audio_features", {})
+
+    # Check for empty/invalid transcripts or no speech detected
+    speech_ratio = audio_features.get("speech_ratio", 1.0)
+    
+    if not transcript or transcript.startswith("[") or len(transcript.split()) < 3 or speech_ratio < 0.03:
+        err_msg = "This is not eligible to assess. No speech detected or answer invalid."
+        return {"error": True, "status": "rejected", "message": err_msg}, {"error": True, "status": "rejected", "message": err_msg}
     
     # Score each dimension (all start from 3.0 base — must EARN higher scores)
     scores = {}
@@ -433,9 +438,12 @@ def _score_vocabulary(content: dict, transcript: str) -> tuple:
         feedback_points["improvements"].append("No academic vocabulary detected. For CLB 10+, you need words like: 'significant', 'beneficial', 'furthermore', 'perspective', 'consequently'")
     
     # Penalty for very short responses (not enough data)
-    if word_count < 20:
-        score = max(3.0, score - 2.0)
-        feedback_points["improvements"].append("Response too short to properly evaluate vocabulary range")
+    if word_count < 40:
+        score = max(3.0, score - 3.0)
+        feedback_points["improvements"].append(f"Response too short ({word_count} words) to properly evaluate vocabulary range and depth. Speak more.")
+    elif word_count < 60:
+        score = max(3.0, score - 1.5)
+        feedback_points["improvements"].append("Vocabulary range assessment is limited by low word count. Expand your answers.")
     
     score = round(max(3.0, min(12.0, score)), 1)
     
@@ -605,6 +613,10 @@ def _score_task_fulfillment(content: dict, fluency: dict, task_number: int, prom
     
     word_count = content.get("word_count", 0)
     ideas = content.get("idea_count", 0)
+    duration_seconds = fluency.get("duration_seconds", 0)
+    
+    expected_duration = 90 if task_number in [1, 7] else 60
+    duration_ratio = duration_seconds / expected_duration if expected_duration > 0 else 0
     
     # Task-specific expectations (stricter)
     task_expectations = {
@@ -643,6 +655,17 @@ def _score_task_fulfillment(content: dict, fluency: dict, task_number: int, prom
         feedback_points["improvements"].append(f"Response too short for {expectation['name']} ({word_count} words). Aim for at least {expectation['min_words']} words")
     else:
         feedback_points["improvements"].append(f"Response far too short ({word_count} words). {expectation['name']} requires at least {expectation['min_words']} words with developed ideas")
+        
+    # --- Duration ratio evaluation ---
+    if duration_ratio < 0.3:
+        score -= 3.0
+        feedback_points["improvements"].append(f"Response duration ({duration_seconds:.0f}s) is significantly shorter than the expected {expected_duration}s. This severely impacts your score.")
+    elif duration_ratio < 0.5:
+        score -= 2.0
+        feedback_points["improvements"].append(f"You only spoke for {duration_seconds:.0f}s out of {expected_duration}s. Use the full time to develop your ideas.")
+    elif duration_ratio < 0.8:
+        score -= 1.0
+        feedback_points["improvements"].append(f"You stopped early ({duration_seconds:.0f}s out of {expected_duration}s). Elaborate more to maximize your score.")
     
     # --- Idea count vs. expectation ---
     if ideas >= expectation["expected_ideas"] + 1:
@@ -726,7 +749,7 @@ def _score_task_fulfillment(content: dict, fluency: dict, task_number: int, prom
         "level_descriptor": LEVEL_DESCRIPTORS.get(max(3, min(12, round(score))), {}).get("task", ""),
         "strengths": feedback_points["strengths"],
         "improvements": feedback_points["improvements"],
-        "detail": f"{word_count}/{expectation['ideal_words']} words, {ideas}/{expectation['expected_ideas']} ideas, {must_have_matched}/{len(keywords['must_have'])} task keywords matched, {bonus_matched} bonus keywords"
+        "detail": f"{duration_seconds:.0f}s/{expected_duration}s time, {word_count}/{expectation['ideal_words']} words, {ideas}/{expectation['expected_ideas']} ideas, {must_have_matched}/{len(keywords['must_have'])} task keywords matched, {bonus_matched} bonus keywords"
     }
 
 

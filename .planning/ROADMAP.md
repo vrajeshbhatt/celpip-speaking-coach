@@ -100,15 +100,16 @@
 Plans:
 - [ ] TBD (run /gsd-plan-phase 7 to break down)
 
-### Phase 8: Advanced Scoring Engine Evaluation
+### Phase 8: Advanced Scoring Engine Evaluation ✓
 
-**Goal:** [To be planned]
-**Requirements**: TBD
+**Goal:** Improve the scoring engine: reject invalid/empty speech, evaluate full answer duration, check word count and pauses, and mimic origin CELPIP evaluation factors.
+**Requirements**: Audio Validation, Strict Ratios
 **Depends on:** Phase 7
-**Plans:** 0 plans
+**Plans:** 2 plans
 
 Plans:
-- [ ] TBD (run /gsd-plan-phase 8 to break down)
+- [x] 01-audio-validation-PLAN.md
+- [x] 02-advanced-metrics-PLAN.md
 
 ---
 *Roadmap created: 2026-03-17*

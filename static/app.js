@@ -343,6 +343,17 @@ async function analyzeRecording() {
 
     const data = await res.json();
 
+    if (data.scores && data.scores.status === "rejected") {
+      document.getElementById('analyzingOverlay').classList.remove('active');
+      alert(data.scores.message || "This is not eligible to assess. No speech detected or answer invalid.");
+      
+      // Return to prep phase so user can try again
+      document.getElementById('recordPhase').classList.add('hidden');
+      document.getElementById('prepPhase').classList.remove('hidden');
+      showPrepPhase();
+      return;
+    }
+
     document.getElementById('analyzingText').textContent = 'Generating scores and feedback...';
     await new Promise(r => setTimeout(r, 500)); // Brief pause for UX
 

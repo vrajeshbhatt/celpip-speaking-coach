@@ -5,10 +5,10 @@ milestone_name: milestone
 status: unknown
 last_updated: "2026-03-18T01:24:17.369Z"
 progress:
-  total_phases: 7
-  completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_phases: 8
+  completed_phases: 8
+  total_plans: 5
+  completed_plans: 5
 ---
 
 # Project State: CELPIP Speaking Coach
@@ -56,6 +56,14 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ### Phase 6: Progress Tracking — Code exists, needs verification
 - SQLite storage, history and progress APIs
 - Code: Part of `app.py`
+
+### Phase 7: Comprehensive CELPIP Tasks and Analysis Upgrades ✓
+- Added 8 complete task interfaces and real-time frontend feedback
+- Code: `data/celpip_tasks.py`, `app.js`, `index.html`
+
+### Phase 8: Advanced Scoring Engine Evaluation ✓
+- Added extreme duration ratio penalization and early rejection for empty/nospeech audio
+- Code: `scoring_engine.py`, `app.js`
 
 ## Key Context
 
