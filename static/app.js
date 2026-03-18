@@ -81,6 +81,7 @@ function switchView(view) {
   document.getElementById('fulltestView').classList.toggle('hidden', view !== 'fulltest');
   document.getElementById('historyView').classList.toggle('hidden', view !== 'history');
   document.getElementById('progressView').classList.toggle('hidden', view !== 'progress');
+  document.getElementById('guidanceView').classList.toggle('hidden', view !== 'guidance');
 
   // Load data for history/progress
   if (view === 'history') loadHistory();
@@ -768,7 +769,8 @@ async function loadProgress() {
     const content = document.getElementById('progressContent');
 
     if (!data.progress || data.progress.length === 0) {
-      renderProgressCharts(data.progress);`r`n`r`n    content.innerHTML = `
+      renderProgressCharts(data.progress);
+      content.innerHTML = `
         <div class="progress-empty">
           <div class="icon">ðŸ“Š</div>
           <p>Complete some practice sessions to track your progress over time!</p>
@@ -789,7 +791,9 @@ async function loadProgress() {
       listenability: 'Listenability', task_fulfillment: 'Task Fulfillment', overall: 'Overall'
     };
 
-    renderProgressCharts(data.progress);`r`n`r`n    content.innerHTML = `
+    renderProgressCharts(data.progress);
+
+    content.innerHTML = `
       <div class="card" style="margin-bottom: 16px;">
         <h3 style="margin-bottom: 16px;">ðŸ“Š Score Summary (${data.total_sessions} sessions)</h3>
         <div class="dimension-scores">
@@ -924,4 +928,5 @@ function showHistoryItem(sessionData) {
   
   showResults(resultsData);
 }
+
 

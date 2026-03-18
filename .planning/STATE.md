@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: Phase 11 Complete
+status: Phase 12 Complete
 last_updated: "2026-03-18T01:24:17.369Z"
 progress:
   total_phases: 8
-  completed_phases: 11
+  completed_phases: 12
   total_plans: 5
   completed_plans: 5
 ---
@@ -64,6 +64,26 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 ### Phase 8: Advanced Scoring Engine Evaluation ✓
 - Added extreme duration ratio penalization and early rejection for empty/nospeech audio
 - Code: `scoring_engine.py`, `app.js`
+
+
+### Phase 9: Dynamic UI & Robust Generation ✅
+- Added Task Dropdown Selector for quick jumping between tasks 0-8
+- Expanded prompt library with 16 new high-quality scenarios
+- Implemented PromptsGenerator for template-based dynamic prompt generation
+
+### Phase 10: Visual Analytics ✅
+- Implemented SVG-based line charts in Progress View
+- Visualized trends for Overall Score, Content, Vocabulary, Listenability, and Task Fulfillment
+
+### Phase 11: Interactive History & Polish ✅
+- Made history items clickable to view detailed results
+- Fixed navigation issues where some views were hidden on load
+- Added comprehensive Test Guide with task-specific strategies
+
+### Phase 12: Comprehensive Research & Engine Upgrade ✅
+- Expanded prompt database to 50+ high-quality scenarios
+- Refined scoring engine with advanced discourse markers and AWL vocabulary
+- Improved Test Guide with rater-aligned strategies and scoring dimensions
 
 ## Key Context
 
