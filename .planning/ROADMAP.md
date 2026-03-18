@@ -100,6 +100,16 @@
 Plans:
 - [ ] TBD (run /gsd-plan-phase 7 to break down)
 
+### Phase 8: Advanced Scoring Engine Evaluation
+
+**Goal:** [To be planned]
+**Requirements**: TBD
+**Depends on:** Phase 7
+**Plans:** 0 plans
+
+Plans:
+- [ ] TBD (run /gsd-plan-phase 8 to break down)
+
 ---
 *Roadmap created: 2026-03-17*
 *Last updated: 2026-03-17 after initial creation*

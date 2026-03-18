@@ -65,4 +65,11 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 - Granularity: Standard (6 phases)
 
 ---
-*Last updated: 2026-03-17 — scoring overhaul in progress*
+*Last updated: 2026-03-18*
+
+## Accumulated Context
+### Roadmap Evolution
+- Phase 8 added: Advanced Scoring Engine Evaluation
+
+### Pending Todos
+- 1 pending todo: Make tasks dynamically selectable 1 to 8
