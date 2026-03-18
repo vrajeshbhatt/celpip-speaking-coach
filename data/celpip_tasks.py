@@ -150,25 +150,29 @@ CELPIP_TASKS = [
                 "id": "T3-P1",
                 "scenario": "Imagine a busy community park on a sunny Saturday afternoon. There are families having picnics, children playing on the playground, joggers on the trail, and a group of people doing yoga on the grass. A food truck is parked near the entrance.",
                 "scene_description": "A busy community park on a sunny Saturday",
-                "topic": "Community park"
+                "topic": "Community park",
+                "image_url": "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?w=800&q=80"
             },
             {
                 "id": "T3-P2",
                 "scenario": "Imagine a bustling farmers' market on a weekend morning. There are vendors selling fresh fruits, vegetables, and baked goods. Musicians are performing near the entrance. Families are shopping and children are eating ice cream.",
                 "scene_description": "A weekend farmers' market",
-                "topic": "Farmers market"
+                "topic": "Farmers market",
+                "image_url": "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800&q=80"
             },
             {
                 "id": "T3-P3",
                 "scenario": "Imagine a modern office workspace during a busy workday. Some employees are working at their desks, others are having a meeting in a glass conference room. A person is making coffee in the kitchen area. The whiteboard has project plans written on it.",
                 "scene_description": "A modern office workspace",
-                "topic": "Office scene"
+                "topic": "Office scene",
+                "image_url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80"
             },
             {
                 "id": "T3-P4",
                 "scenario": "Imagine a neighborhood street after a snowfall. Children are building a snowman in the front yard. A person is shoveling their driveway. A mail carrier is delivering packages. Holiday decorations are visible on some houses.",
                 "scene_description": "A winter neighborhood scene",
-                "topic": "Winter neighborhood"
+                "topic": "Winter neighborhood",
+                "image_url": "https://images.unsplash.com/photo-1517260739337-6799d239ce83?w=800&q=80"
             }
         ]
     },
@@ -189,27 +193,31 @@ CELPIP_TASKS = [
         "prompts": [
             {
                 "id": "T4-P1",
-                "scenario": "Based on the park scene: The weather is starting to change — dark clouds are forming in the distance. Some vendors are looking up at the sky with concern.",
+                "scenario": "Based on the park scene: The weather is starting to change — dark clouds are forming in the distance. The families having picnics are starting to pack up.",
                 "context": "Park scene with approaching weather change",
-                "topic": "Park predictions"
+                "topic": "Park predictions",
+                "image_url": "https://images.unsplash.com/photo-1544365558-35aa4afcf11f?w=800&q=80"
             },
             {
                 "id": "T4-P2",
-                "scenario": "Based on the office scene: It's 4:30 PM on a Friday. The meeting in the conference room seems to be getting intense. One person's phone keeps buzzing.",
-                "context": "Office scene near end of work week",
-                "topic": "Office predictions"
+                "scenario": "Based on the busy farmers' market scene: Predict what the vendors and the shoppers might do in the next few minutes.",
+                "context": "Busy outdoor farmers' market",
+                "topic": "Market predictions",
+                "image_url": "https://images.unsplash.com/photo-1533900298318-6b8da08a523e?w=800&q=80"
             },
             {
                 "id": "T4-P3",
-                "scenario": "Based on a restaurant scene: A couple is having dinner at a fancy restaurant. The man looks nervous and keeps touching his jacket pocket. A waiter is bringing a special dessert with a candle.",
-                "context": "Restaurant scene with nervous man",
-                "topic": "Restaurant predictions"
+                "scenario": "Based on the office scene: It's 4:30 PM on a Friday. The meeting in the conference room seems to be getting intense. One person's phone keeps buzzing.",
+                "context": "Office scene near end of work week",
+                "topic": "Office predictions",
+                "image_url": "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&q=80"
             },
             {
                 "id": "T4-P4",
-                "scenario": "Based on a school scene: Students are gathering in the gymnasium. Some students are setting up decorations. A DJ is testing the sound equipment. Teachers are putting out refreshments.",
-                "context": "School gymnasium being prepared for an event",
-                "topic": "School event predictions"
+                "scenario": "Based on the winter neighborhood scene: The mail carrier is arriving but the driveway is very icy and entirely unshoveled. Predict what might happen.",
+                "context": "Winter neighborhood with mail carrier",
+                "topic": "Winter neighborhood predictions",
+                "image_url": "https://images.unsplash.com/photo-1517260739337-6799d239ce83?w=800&q=80"
             }
         ]
     },

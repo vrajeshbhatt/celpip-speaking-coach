@@ -348,6 +348,22 @@ h4 { font-size: 1rem; }
   font-size: 0.95rem;
 }
 
+.task-image-container {
+  max-width: 600px;
+  margin: 0 auto 24px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.task-image {
+  width: 100%;
+  height: auto;
+  max-height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
 /* ---- Timer ---- */
 .timer-container {
   margin: 32px auto;

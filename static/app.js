@@ -167,6 +167,16 @@ function showPrepPhase() {
   document.getElementById('activeTaskName').textContent = `Task ${task.number}: ${task.name}`;
   document.getElementById('scenarioBox').textContent = task.prompt.scenario;
   
+  const imageBox = document.getElementById('taskImageBox');
+  const imageEl = document.getElementById('taskImage');
+  if (task.prompt.image_url) {
+    imageEl.src = task.prompt.image_url;
+    imageBox.style.display = 'block';
+  } else {
+    imageBox.style.display = 'none';
+    imageEl.src = '';
+  }
+  
   // Tips
   const tipsList = document.getElementById('tipsList');
   tipsList.innerHTML = task.tips.map(tip => `<li>${tip}</li>`).join('');
@@ -220,6 +230,16 @@ async function startRecording() {
 
   document.getElementById('recordTaskName').textContent = `Task ${task.number}: ${task.name}`;
   document.getElementById('recordScenarioBox').textContent = task.prompt.scenario;
+
+  const recordImageBox = document.getElementById('recordTaskImageBox');
+  const recordImageEl = document.getElementById('recordTaskImage');
+  if (task.prompt.image_url) {
+    recordImageEl.src = task.prompt.image_url;
+    recordImageBox.style.display = 'block';
+  } else {
+    recordImageBox.style.display = 'none';
+    recordImageEl.src = '';
+  }
 
   // Start audio recording
   try {
