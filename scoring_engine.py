@@ -132,25 +132,58 @@ CRITERIA = {
 # Presence of these words indicates CLB 9+ vocabulary range
 # ---------------------------------------------------------------------------
 ACADEMIC_WORDS = {
-    "analyze", "approach", "assess", "assume", "benefit", "concept", "consist",
-    "constitute", "context", "contribute", "create", "define", "demonstrate",
-    "derive", "distribute", "economy", "environment", "establish", "estimate",
-    "evaluate", "evidence", "export", "factor", "finance", "formula", "function",
-    "identify", "indicate", "individual", "interpret", "involve", "issue",
-    "legislate", "major", "method", "occur", "percent", "period", "policy",
-    "principle", "proceed", "process", "require", "research", "respond",
-    "significant", "similar", "source", "specific", "structure", "theory",
-    "vary", "furthermore", "consequently", "nevertheless", "subsequently",
-    "perspective", "fundamental", "comprehensive", "substantial", "implement",
-    "facilitate", "enhance", "acknowledge", "anticipate", "circumstances",
-    "considerable", "demonstrate", "emphasize", "inevitable", "infrastructure",
-    "preliminary", "predominantly", "reinforcement", "supplementary",
-    "beneficial", "crucial", "essential", "integral", "paramount"
+    "analyze", "approach", "area", "assessment", "assume", "authority",
+    "available", "benefit", "concept", "consistent", "constitutional",
+    "context", "create", "data", "definition", "derived", "distribution",
+    "economic", "environment", "established", "estimate", "evidence",
+    "export", "factors", "financial", "formula", "function", "identified",
+    "income", "indicate", "individual", "interpretation", "involved",
+    "issue", "labour", "legal", "legislation", "major", "method",
+    "occur", "percent", "period", "policy", "principle", "procedure",
+    "process", "required", "research", "response", "role", "section",
+    "sector", "significant", "similar", "source", "specific", "structure",
+    "theory", "variables", "achieve", "acquisition", "administration",
+    "affect", "appropriate", "aspects", "assistance", "categories",
+    "chapter", "commission", "community", "complex", "computer",
+    "conclusion", "conduct", "consequences", "construction", "consumer",
+    "credit", "cultural", "design", "distinction", "elements", "equation",
+    "evaluation", "features", "final", "focus", "impact", "injury",
+    "institute", "investment", "items", "journal", "maintenance",
+    "normal", "obtained", "participation", "perceived", "positive",
+    "potential", "previous", "primary", "purchase", "range", "region",
+    "relevant", "restricted", "security", "select", "site", "strategies",
+    "survey", "text", "traditional", "transfer", "alternative",
+    "circumstances", "comments", "compensation", "components", "consent",
+    "considerable", "constant", "constraints", "contribution", "convention",
+    "coordination", "core", "corporate", "corresponding", "criteria",
+    "deduction", "demonstrate", "document", "dominant", "emphasis",
+    "ensure", "excluded", "framework", "funds", "illustrated", "immigration",
+    "implies", "initial", "instance", "interaction", "justification",
+    "layer", "link", "location", "maximum", "minorities", "negative",
+    "outcomes", "partnership", "philosophy", "physical", "proportion",
+    "published", "reaction", "registered", "reliance", "removed",
+    "scheme", "sequence", "shift", "specified", "sufficient", "task",
+    "technical", "techniques", "technology", "valid", "volume"
 }
 
 # Discourse markers by sophistication level
 DISCOURSE_MARKERS = {
-    "basic": {"and", "but", "so", "because", "also", "then", "next"},
+    "basic": {"and", "but", "so", "because", "also", "then", "next", "first", "second"},
+    "intermediate": {
+        "however", "therefore", "moreover", "although", "furthermore",
+        "in addition", "on the other hand", "for example", "for instance",
+        "as a result", "in my opinion", "i believe", "i think",
+        "firstly", "secondly", "finally", "consequently", "similarly",
+        "in contrast", "nevertheless", "despite", "even though"
+    },
+    "advanced": {
+        "notwithstanding", "conversely", "subsequently", "in light of",
+        "taking into account", "with respect to", "as evidenced by",
+        "by the same token", "in view of", "to illustrate",
+        "it is paramount that", "another significant factor is",
+        "a crucial aspect of", "from my perspective", "this underscores"
+    }
+},
     "intermediate": {
         "however", "therefore", "moreover", "although", "furthermore",
         "in addition", "on the other hand", "for example", "for instance",

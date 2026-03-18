@@ -1,5 +1,7 @@
+﻿import random
+from prompts_generator import generator
 """
-CELPIP Speaking Coach — Main Application
+CELPIP Speaking Coach â€” Main Application
 FastAPI backend with audio recording, transcription, and speech analysis.
 """
 
@@ -106,7 +108,7 @@ async def lifespan(app: FastAPI):
     print("=" * 55)
     yield
     # Shutdown
-    print("CELPIP Speaking Coach — Shutting down")
+    print("CELPIP Speaking Coach â€” Shutting down")
 
 
 # ---------------------------------------------------------------------------
@@ -172,31 +174,27 @@ async def get_task(task_number: int):
 
 
 @app.post("/api/tasks/generate")
-async def generate_new_tasks():
+async def generate_new_tasks(task_number: int = None, topic: str = None):
     """Fetch/generate new practice prompts for the task library.
-    In a full production version, this would call an LLM API to generate fresh
-    scenarios aligned with CELPIP standards. For now, we simulate this.
+    Supports optional task_number and topic for more specific generation.
     """
-    import random
     from data.celpip_tasks import CELPIP_TASKS
-    
-    # Simulate API delay
+
+    # Simulate API delay for UX
     await asyncio.sleep(2)
+
+    # Use the robust generator
+    new_prompt = generator.generate_prompt(task_number, topic)
     
-    # Add a mock "newly fetched" prompt to a random task
-    new_prompt = {
-        "id": f"NEW-{random.randint(1000, 9999)}",
-        "scenario": f"New Challenge Generated at {datetime.now().time().strftime('%H:%M:%S')}: Talk about a recent technological change that has affected your daily routine.",
-        "topic": "Technology impact"
-    }
+    # Assign to a specific task (if task_number provided) or a random one
+    target_task_num = task_number or random.choice([1, 2, 7])
     
-    # Add it to Task 2 (Personal Experience) just as an example
     for task in CELPIP_TASKS:
-        if task["number"] == 2:
+        if task["number"] == target_task_num:
             task["prompts"].append(new_prompt)
-            break
-            
-    return {"status": "success", "message": "Successfully fetched 1 fresh practice prompt and added it to Task 2!"}
+            return {"status": "success", "message": f"Successfully generated a fresh practice prompt about '{new_prompt['topic']}' and added it to Task {target_task_num}: {task['name']}!"}
+
+    return {"status": "error", "message": f"Task {target_task_num} not found to add new prompt to."}
 
 
 # ---------------------------------------------------------------------------
@@ -253,7 +251,7 @@ async def upload_audio(audio: UploadFile = File(...), task_type: str = "practice
             print(f"[WARN] Transcription error: {e}")
             transcript = "[Transcription failed]"
     else:
-        transcript = "[Whisper model not loaded — install faster-whisper]"
+        transcript = "[Whisper model not loaded â€” install faster-whisper]"
     
     # Analyze speech
     analysis = {}
@@ -382,3 +380,6 @@ async def health_check():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=True)
+
+
+

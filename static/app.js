@@ -1,5 +1,5 @@
-/**
- * CELPIP Speaking Coach — Frontend Application
+﻿/**
+ * CELPIP Speaking Coach â€” Frontend Application
  * Handles task flow, audio recording, timer, and results display.
  */
 
@@ -40,10 +40,10 @@ async function checkHealth() {
     const text = document.getElementById('healthText');
 
     if (data.whisper_loaded) {
-      text.textContent = `Ready — Whisper ${data.whisper_model}`;
+      text.textContent = `Ready â€” Whisper ${data.whisper_model}`;
       badge.classList.remove('error');
     } else {
-      text.textContent = 'Whisper not loaded — limited mode';
+      text.textContent = 'Whisper not loaded â€” limited mode';
       badge.classList.add('error');
     }
   } catch (e) {
@@ -94,13 +94,13 @@ function renderTaskGrid() {
   const grid = document.getElementById('taskGrid');
   let html = state.tasks.map(task => `
     <div class="task-card ${task.is_practice ? 'practice-task' : ''}" onclick="selectTask(${task.number})">
-      <div class="task-number">${task.number === 0 ? '🎯' : task.number}</div>
+      <div class="task-number">${task.number === 0 ? 'ðŸŽ¯' : task.number}</div>
       <div class="task-name">${task.name}</div>
       <div class="task-desc">${task.description}</div>
       <div class="task-timing">
         ${task.is_practice ? '<span class="practice-badge">UNSCORED</span>' : ''}
-        <span>⏱ ${task.prep_time}s prep</span>
-        <span>🎤 ${task.response_time}s speak</span>
+        <span>â± ${task.prep_time}s prep</span>
+        <span>ðŸŽ¤ ${task.response_time}s speak</span>
       </div>
     </div>
   `).join('');
@@ -108,7 +108,7 @@ function renderTaskGrid() {
   // Add 'Fetch New Tasks' card
   html += `
     <div class="task-card fetch-tasks-card" onclick="fetchNewTasks()">
-      <div class="task-number">🔄</div>
+      <div class="task-number">ðŸ”„</div>
       <div class="task-name">Fetch New Tasks</div>
       <div class="task-desc">Get fresh prompts and practice scenarios to keep your preparation challenging.</div>
       <div class="task-timing">
@@ -118,6 +118,13 @@ function renderTaskGrid() {
   `;
   
   grid.innerHTML = html;
+
+  // NEW: Populate dropdown selector
+  const select = document.getElementById('taskSelect');
+  if (select) {
+    select.innerHTML = '<option value="" disabled selected>Quick Select Task...</option>' + 
+      state.tasks.map(task => `<option value="${task.number}">${task.number === 0 ? 'Practice' : 'Task ' + task.number}: ${task.name}</option>`).join('');
+  }
 }
 
 async function fetchNewTasks() {
@@ -143,6 +150,12 @@ async function fetchNewTasks() {
 // Task Flow
 // ============================================================
 async function selectTask(taskNumber) {
+  if (taskNumber === "") return;
+  
+  // Update dropdown if selected via grid
+  const select = document.getElementById('taskSelect');
+  if (select) select.value = taskNumber;
+
   try {
     const res = await fetch(`/api/tasks/${taskNumber}`);
     const data = await res.json();
@@ -370,7 +383,7 @@ async function analyzeRecording() {
         state.currentPrompt = state.currentTask.prompt;
         showPrepPhase();
       } else {
-        // Full test complete — show summary
+        // Full test complete â€” show summary
         showFullTestResults();
       }
     } else {
@@ -402,10 +415,10 @@ function showResults(data) {
     <div class="score-dashboard">
       <div class="overall-score">
         <div class="score-circle ${overall >= 10 ? 'score-excellent' : overall >= 7 ? 'score-good' : overall >= 4 ? 'score-fair' : 'score-low'}">
-          <div class="score-value">${isPractice ? '—' : overall.toFixed(1)}</div>
+          <div class="score-value">${isPractice ? 'â€”' : overall.toFixed(1)}</div>
           <div class="score-label">${isPractice ? 'PRACTICE' : 'CELPIP'}</div>
         </div>
-        ${isPractice ? '<div class="clb-badge" style="background: var(--bg-tertiary);">Unscored Warm-Up</div>' : `<div class="clb-badge">CLB ${clb} — ${levelLabel}</div>`}
+        ${isPractice ? '<div class="clb-badge" style="background: var(--bg-tertiary);">Unscored Warm-Up</div>' : `<div class="clb-badge">CLB ${clb} â€” ${levelLabel}</div>`}
         ${scores.level_descriptor ? `<p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.9rem;">${scores.level_descriptor}</p>` : ''}
       </div>
 
@@ -426,7 +439,7 @@ function showResults(data) {
     </div>
 
     <div class="btn-group" style="margin-top: 32px;">
-      <button class="btn btn-secondary" onclick="cancelTask()">← Back to Tasks</button>
+      <button class="btn btn-secondary" onclick="cancelTask()">â† Back to Tasks</button>
       <button class="btn btn-primary" onclick="retryTask()">Try Again</button>
     </div>
   `;
@@ -470,7 +483,7 @@ function renderImmediateImprovements(improvements) {
   return `
     <div class="card" style="margin-bottom: 24px; border-left: 4px solid var(--accent-warning); background: rgba(234, 187, 85, 0.05);">
       <h3 style="margin-bottom: 12px; color: var(--accent-warning); display: flex; align-items: center; gap: 8px;">
-        <span>⚡</span> Immediate Actionable Improvements
+        <span>âš¡</span> Immediate Actionable Improvements
       </h3>
       <ul class="feedback-list improvements" style="margin-top: 12px;">
         ${improvements.map(imp => `<li>${imp}</li>`).join('')}
@@ -483,12 +496,12 @@ function renderPriorities(priorities) {
   if (!priorities || priorities.length === 0) return '';
   return `
     <div class="priority-box">
-      <h4>🎯 Top Improvement Priorities</h4>
+      <h4>ðŸŽ¯ Top Improvement Priorities</h4>
       ${priorities.map((p, i) => `
         <div class="priority-item">
           <span class="priority-number">${i + 1}</span>
           <div class="priority-text">
-            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)}/12${p.gap_to_10 ? ` · ${p.gap_to_10.toFixed(1)} pts to CLB 10` : ''})</span> — ${p.action}
+            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)}/12${p.gap_to_10 ? ` Â· ${p.gap_to_10.toFixed(1)} pts to CLB 10` : ''})</span> â€” ${p.action}
           </div>
         </div>
       `).join('')}
@@ -500,7 +513,7 @@ function renderLevelAdvice(advice) {
   if (!advice) return '';
   return `
     <div class="level-advice-box">
-      <h4>📚 Coaching Advice for Your Level</h4>
+      <h4>ðŸ“š Coaching Advice for Your Level</h4>
       <p>${advice}</p>
     </div>
   `;
@@ -516,7 +529,7 @@ function renderFeedbackCards(feedback) {
         if (!fb) return '';
         return `
           <div class="feedback-card">
-            <h4>${fb.criterion} — ${fb.score ? fb.score.toFixed(1) : '—'}/12</h4>
+            <h4>${fb.criterion} â€” ${fb.score ? fb.score.toFixed(1) : 'â€”'}/12</h4>
             ${fb.detail ? `<p style="color: var(--text-muted); font-size: 0.8rem; margin-bottom: 12px;">${fb.detail}</p>` : ''}
             ${fb.strengths && fb.strengths.length > 0 ? `
               <ul class="feedback-list strengths">
@@ -549,7 +562,7 @@ function renderModelAnswer(answer) {
   if (!answer) return '';
   return `
     <div class="model-answer">
-      <div class="label">✨ Model Answer Structure</div>
+      <div class="label">âœ¨ Model Answer Structure</div>
       <p>${answer}</p>
     </div>
   `;
@@ -568,7 +581,10 @@ function cancelTask() {
 
   state.fullTestMode = false;
   state.currentTask = null;
-  
+
+  const select = document.getElementById('taskSelect');
+  if (select) select.value = '';
+
   document.getElementById('taskSelection').classList.remove('hidden');
   document.getElementById('activeTask').classList.remove('active');
   document.getElementById('prepPhase').classList.remove('hidden');
@@ -661,7 +677,7 @@ function showFullTestResults() {
     </div>
     
     <div class="level-advice-box" style="margin-top: 24px; text-align: left;">
-      <h4>📋 Full Test Evaluation Summary</h4>
+      <h4>ðŸ“‹ Full Test Evaluation Summary</h4>
       <p>You scored an average of <strong>CLB ${clb}</strong> across all 8 tasks. 
       ${clb >= 9 ? 'Excellent work! You are scoring at a very high level. Focus on minor vocabulary enhancements and eliminating any remaining hesitations to reach CLB 10+ consistently.' : 
         clb >= 7 ? 'Good job! You have a solid foundation. To reach CLB 9+, focus on using more complex grammatical structures and reducing filler words like "um" and "uh".' : 
@@ -675,7 +691,7 @@ function showFullTestResults() {
         const task = state.fullTestTasks[i];
         const score = r.scores ? r.scores.overall || 0 : 0;
         return `
-          <div class="history-item">
+          <div class="history-item" onclick='showHistoryItem(${JSON.stringify(s).replace(/"/g, "&quot;")})'>
             <div class="history-info">
               <span class="history-task">Task ${task.number}: ${task.name}</span>
             </div>
@@ -686,7 +702,7 @@ function showFullTestResults() {
     </div>
 
     <div class="btn-group" style="margin-top: 32px;">
-      <button class="btn btn-secondary" onclick="cancelTask()">← Back to Tasks</button>
+      <button class="btn btn-secondary" onclick="cancelTask()">â† Back to Tasks</button>
       <button class="btn btn-primary" onclick="startFullTest()">Retake Full Test</button>
     </div>
   `;
@@ -707,7 +723,7 @@ async function loadHistory() {
     if (!data.sessions || data.sessions.length === 0) {
       list.innerHTML = `
         <div class="progress-empty">
-          <div class="icon">📋</div>
+          <div class="icon">ðŸ“‹</div>
           <p>No practice sessions yet. Start practicing to see your history!</p>
         </div>
       `;
@@ -719,7 +735,7 @@ async function loadHistory() {
       const overall = scores.overall || 0;
       const date = new Date(s.created_at).toLocaleString();
       return `
-        <div class="history-item">
+        <div class="history-item" onclick='showHistoryItem(${JSON.stringify(s).replace(/"/g, "&quot;")})'>
           <div class="history-info">
             <span class="history-task">Task ${s.task_number}: ${getTaskName(s.task_number)}</span>
             <span class="history-date">${date}</span>
@@ -752,9 +768,9 @@ async function loadProgress() {
     const content = document.getElementById('progressContent');
 
     if (!data.progress || data.progress.length === 0) {
-      content.innerHTML = `
+      renderProgressCharts(data.progress);`r`n`r`n    content.innerHTML = `
         <div class="progress-empty">
-          <div class="icon">📊</div>
+          <div class="icon">ðŸ“Š</div>
           <p>Complete some practice sessions to track your progress over time!</p>
         </div>
       `;
@@ -773,15 +789,15 @@ async function loadProgress() {
       listenability: 'Listenability', task_fulfillment: 'Task Fulfillment', overall: 'Overall'
     };
 
-    content.innerHTML = `
+    renderProgressCharts(data.progress);`r`n`r`n    content.innerHTML = `
       <div class="card" style="margin-bottom: 16px;">
-        <h3 style="margin-bottom: 16px;">📊 Score Summary (${data.total_sessions} sessions)</h3>
+        <h3 style="margin-bottom: 16px;">ðŸ“Š Score Summary (${data.total_sessions} sessions)</h3>
         <div class="dimension-scores">
           ${dimensions.map(dim => {
             const current = latestScores[dim] || 0;
             const initial = firstScores[dim] || 0;
             const change = current - initial;
-            const changeText = change > 0 ? `↑ ${change.toFixed(1)}` : change < 0 ? `↓ ${Math.abs(change).toFixed(1)}` : '—';
+            const changeText = change > 0 ? `â†‘ ${change.toFixed(1)}` : change < 0 ? `â†“ ${Math.abs(change).toFixed(1)}` : 'â€”';
             const changeColor = change > 0 ? 'var(--accent-success)' : change < 0 ? 'var(--accent-danger)' : 'var(--text-muted)';
             return `
               <div class="dimension-card">
@@ -803,3 +819,109 @@ async function loadProgress() {
     console.error('Failed to load progress:', e);
   }
 }
+
+
+
+
+// ============================================================
+// Progress Charts (SVG)
+// ============================================================
+function renderProgressCharts(progressData) {
+  const container = document.getElementById('progressCharts');
+  if (!container || !progressData || progressData.length < 2) {
+    if (container) container.innerHTML = "";
+    return;
+  }
+
+  const dimensions = [
+    { key: 'overall', label: 'Overall Score', color: 'var(--accent-primary)' },
+    { key: 'content_coherence', label: 'Content/Coherence', color: 'var(--accent-info)' },
+    { key: 'vocabulary', label: 'Vocabulary', color: 'var(--accent-secondary)' },
+    { key: 'listenability', label: 'Listenability', color: 'var(--accent-success)' },
+    { key: 'task_fulfillment', label: 'Task Fulfillment', color: 'var(--accent-warning)' }
+  ];
+
+  let html = `<h3 style="margin-bottom: 20px;">ðŸ“ˆ Score Trends</h3><div class="charts-grid">`;
+  
+  dimensions.forEach(dim => {
+    const scores = progressData.map(d => ({
+      val: d.scores[dim.key] || 0,
+      date: new Date(d.date).toLocaleDateString()
+    }));
+    html += `
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">${dim.label}</span>
+          <span class="chart-current">${scores[scores.length - 1].val.toFixed(1)}</span>
+        </div>
+        <div class="chart-svg-container">
+          ${createLineChart(scores, dim.color)}
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+function createLineChart(data, color) {
+  const width = 300;
+  const height = 120;
+  const padding = 20;
+  const maxScore = 12;
+  
+  const points = data.map((d, i) => {
+    const x = padding + (i * (width - 2 * padding) / (data.length - 1 || 1));
+    const y = height - padding - (d.val * (height - 2 * padding) / maxScore);
+    return { x, y };
+  });
+
+  let pathData = `M ${points[0].x} ${points[0].y}`;
+  for (let i = 1; i < points.length; i++) {
+    pathData += ` L ${points[i].x} ${points[i].y}`;
+  }
+
+  const circles = points.map((p, i) => 
+    `<circle cx="${p.x}" cy="${p.y}" r="3" fill="${color}" class="chart-point">
+      <title>Score: ${data[i].val.toFixed(1)} (${data[i].date})</title>
+    </circle>`
+  ).join('');
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" class="line-chart-svg">
+      <!-- Grid lines -->
+      <line x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke="var(--border-subtle)" stroke-width="1" />
+      <line x1="${padding}" y1="${padding}" x2="${padding}" y2="${height - padding}" stroke="var(--border-subtle)" stroke-width="1" />
+      
+      <!-- Path -->
+      <path d="${pathData}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      
+      <!-- Points -->
+      ${circles}
+    </svg>
+  `;
+}
+
+
+function showHistoryItem(sessionData) {
+  // Switch to practice view to show results
+  switchView('practice');
+  
+  // Prepare data for showResults
+  const resultsData = {
+    scores: sessionData.scores,
+    feedback: sessionData.feedback,
+    transcript: sessionData.transcript
+  };
+  
+  // Set current task to match the history item
+  state.currentTask = {
+    number: sessionData.task_number,
+    name: getTaskName(sessionData.task_number),
+    is_practice: sessionData.task_number === 0
+  };
+  
+  showResults(resultsData);
+}
+

@@ -86,7 +86,12 @@ CELPIP_TASKS = [
                 "scenario": "Your friend's teenage child is spending too much time on social media and their grades are dropping. Your friend doesn't know how to handle the situation.",
                 "situation": "Your friend's child is addicted to social media.",
                 "target": "your friend"
-            }
+            },
+            {"id": "T1-P6", "scenario": "Your friend wants to quit their stable job to become a full-time artist, but they have no financial safety net.", "situation": "Friend wants to quit job for art without savings.", "target": "your friend"},
+            {"id": "T1-P7", "scenario": "Your colleague is extremely nervous about giving a major presentation to the CEO tomorrow morning.", "situation": "Colleague is nervous about CEO presentation.", "target": "your colleague"},
+            {"id": "T1-P8", "scenario": "Your friend is considering quitting their secure job to travel the world for a year without much savings. Give them advice.", "situation": "Quitting job to travel without savings", "target": "your friend"},
+            {"id": "T1-P9", "scenario": "Your cousin is about to go for their first major job interview and is extremely nervous. Give them advice on how to prepare and stay calm.", "situation": "Nervous about first job interview", "target": "your cousin"},
+            {"id": "T1-P10", "scenario": "Your neighbor wants to start a large vegetable garden but has never planted anything before and has a very small backyard. Give them advice.", "situation": "Starting a garden with no experience", "target": "your neighbor"}
         ]
     },
     {
@@ -128,7 +133,12 @@ CELPIP_TASKS = [
                 "id": "T2-P5",
                 "scenario": "Talk about a cultural event or celebration that is important to you. Why is it meaningful?",
                 "topic": "A cultural celebration"
-            }
+            },
+            {"id": "T2-P6", "scenario": "Talk about a time you received a piece of advice that changed your perspective. What was it, and why was it important?", "topic": "Life-changing advice"},
+            {"id": "T2-P7", "scenario": "Describe a time you had to work with someone who had a very different personality from yours. How did you manage to work together?", "topic": "Working with different personalities"},
+            {"id": "T2-P8", "scenario": "Talk about a time when you had to make a difficult decision that affected your family or friends. What happened?", "topic": "A difficult decision"},
+            {"id": "T2-P9", "scenario": "Describe a time when you received a gift that was very meaningful to you. Who gave it to you and why was it special?", "topic": "A meaningful gift"},
+            {"id": "T2-P10", "scenario": "Talk about a project or achievement you are particularly proud of. What was it, and what did it take to accomplish?", "topic": "A proud achievement"}
         ]
     },
     {
@@ -173,7 +183,12 @@ CELPIP_TASKS = [
                 "scene_description": "A winter neighborhood scene",
                 "topic": "Winter neighborhood",
                 "image_url": "https://images.unsplash.com/photo-1517260739337-6799d239ce83?w=800&q=80"
-            }
+            },
+            {"id": "T3-P5", "scenario": "Imagine a bustling airport terminal. People are rushing to gates, some are sleeping on chairs, others are checking the large flight information screens. A child is waving at a plane through the window.", "scene_description": "A busy airport terminal", "topic": "Airport scene", "image_url": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80"},
+            {"id": "T3-P6", "scenario": "Imagine a quiet, grand library with high ceilings. Students are sitting at long wooden tables with laptops and stacks of books. A librarian is shelving books on a rolling ladder. Large windows show a rainy day outside.", "scene_description": "A quiet grand library", "topic": "Library scene", "image_url": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80"},
+            {"id": "T3-P7", "scenario": "Imagine a busy rainy day at a city bus stop. People are holding umbrellas, some are splashing in puddles, a bus is approaching, and a street performer is playing music nearby.", "scene_description": "A rainy city bus stop", "topic": "Rainy bus stop", "image_url": "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80"},
+            {"id": "T3-P8", "scenario": "Imagine a sunny rooftop terrace in a city. People are sitting at small tables, some are drinking coffee, others are looking at the skyline. There are plants in large pots and a small fountain.", "scene_description": "A sunny rooftop terrace", "topic": "Rooftop terrace", "image_url": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80"},
+            {"id": "T3-P9", "scenario": "Imagine a crowded sports stadium during a game. Fans are cheering, waving flags, some are eating snacks. The players are in the middle of a play, and large screens show the score.", "scene_description": "A crowded sports stadium", "topic": "Sports stadium", "image_url": "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=80"}
         ]
     },
     {
@@ -218,7 +233,12 @@ CELPIP_TASKS = [
                 "context": "Winter neighborhood with mail carrier",
                 "topic": "Winter neighborhood predictions",
                 "image_url": "https://images.unsplash.com/photo-1517260739337-6799d239ce83?w=800&q=80"
-            }
+            },
+            {"id": "T4-P5", "scenario": "Based on the airport scene: A major announcement is made that several international flights have been canceled due to a storm. Predict the reactions and actions of the passengers.", "context": "Airport with canceled flights", "topic": "Airport predictions", "image_url": "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?w=800&q=80"},
+            {"id": "T4-P6", "scenario": "Based on the library scene: The power suddenly goes out in the entire library, leaving it in near darkness. Predict what the students and the librarian will do.", "context": "Library power outage", "topic": "Library predictions", "image_url": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=800&q=80"},
+            {"id": "T4-P7", "scenario": "Based on the rainy bus stop scene: A large car is driving through a puddle right next to the people waiting. Predict what will happen to the people and their reaction.", "context": "Rainy bus stop puddle splash", "topic": "Bus stop predictions", "image_url": "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&q=80"},
+            {"id": "T4-P8", "scenario": "Based on the rooftop terrace: A sudden strong gust of wind blows through the city. Predict what will happen to the items on the tables and the people.", "context": "Windy rooftop terrace", "topic": "Rooftop predictions", "image_url": "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80"},
+            {"id": "T4-P9", "scenario": "Based on the sports stadium: The home team scores a last-minute winning goal. Predict the reaction of the fans and the players.", "context": "Stadium winning goal", "topic": "Stadium predictions", "image_url": "https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=800&q=80"}
         ]
     },
     {
@@ -263,7 +283,12 @@ CELPIP_TASKS = [
                 "option_a": "Downtown apartment",
                 "option_b": "Suburban house",
                 "topic": "Living situation"
-            }
+            },
+            {"id": "T5-P5", "scenario": "Your friend is deciding on transportation:\nOption A: Buying a new car \u2014 convenience, long-term asset, but expensive and high maintenance\nOption B: Using public transit and car-sharing \u2014 cost-effective, eco-friendly, but less flexible\nPersuade your friend to choose one.", "option_a": "Buying a new car", "option_b": "Public transit & car-sharing", "topic": "Transportation choice"},
+            {"id": "T5-P6", "scenario": "Your friend is deciding where to live:\nOption A: A house with a big garden \u2014 privacy, space, nature, but more maintenance\nOption B: A modern condo with amenities \u2014 gym, pool, security, low maintenance, but less space\nPersuade your friend to choose one.", "option_a": "House with garden", "option_b": "Modern condo", "topic": "Home type choice"},
+            {"id": "T5-P7", "scenario": "Your friend is deciding on a pet:\nOption A: A high-energy dog \u2014 needs long walks, training, but very loyal and fun\nOption B: A low-maintenance cat \u2014 independent, quiet, good for small spaces, but less active\nPersuade your friend to choose one.", "option_a": "High-energy dog", "option_b": "Low-maintenance cat", "topic": "Pet choice"},
+            {"id": "T5-P8", "scenario": "Your friend is choosing a place to study:\nOption A: A quiet, traditional library \u2014 no distractions, very formal, but far away\nOption B: A lively, modern cafe \u2014 comfortable, near home, but can be noisy and crowded\nPersuade your friend to choose one.", "option_a": "Traditional library", "option_b": "Modern cafe", "topic": "Study spot choice"},
+            {"id": "T5-P9", "scenario": "Your friend is deciding on a new skill to learn:\nOption A: A coding bootcamp \u2014 intensive, career-focused, but expensive and time-consuming\nOption B: A local language class \u2014 social, culturally enriching, but slower career progression\nPersuade your friend to choose one.", "option_a": "Coding bootcamp", "option_b": "Language class", "topic": "New skill choice"}
         ]
     },
     {
@@ -304,7 +329,12 @@ CELPIP_TASKS = [
                 "scenario": "You are at a restaurant celebrating a friend's birthday. The service is extremely slow, the food arrives cold, and one person in your group received the wrong order. The bill also includes items you didn't order. What do you say and do?",
                 "situation": "Bad restaurant experience during celebration",
                 "topic": "Restaurant complaint"
-            }
+            },
+            {"id": "T6-P5", "scenario": "You promised to help a close friend move to their new apartment today, but a major last-minute emergency has come up at work and you must stay late. Your friend is expecting you in an hour. What do you say and do?", "situation": "Canceling help for a move due to work emergency", "topic": "Social commitment conflict"},
+            {"id": "T6-P6", "scenario": "You arrive at your hotel after a long flight and find that your room is dirty and smells like smoke, even though you booked a non-smoking room. The front desk tells you the hotel is fully booked and there are no other rooms. What do you say and do?", "situation": "Dirty hotel room when fully booked", "topic": "Hotel complaint"},
+            {"id": "T6-P7", "scenario": "You are at a movie theater and the person behind you is talking loudly on their phone and kicking your seat. You have asked them to stop once, but they ignored you. What do you say and do?", "situation": "Rude person at movie theater", "topic": "Theater conflict"},
+            {"id": "T6-P8", "scenario": "Your flight has been overbooked and the airline is asking for volunteers to take a later flight in exchange for a travel voucher. You have an important meeting tomorrow morning. What do you say and do?", "situation": "Overbooked flight with important meeting", "topic": "Airline dispute"},
+            {"id": "T6-P9", "scenario": "You are at a library and notice someone is marking and tearing pages out of a rare, expensive reference book. The person seems unaware that they are being watched. What do you say and do?", "situation": "Vandalism at the library", "topic": "Library incident"}
         ]
     },
     {
@@ -346,7 +376,12 @@ CELPIP_TASKS = [
                 "id": "T7-P5",
                 "scenario": "Some people believe that university education is essential for career success, while others argue that practical experience and self-learning are more valuable. What is your opinion?",
                 "topic": "University education vs. practical experience"
-            }
+            },
+            {"id": "T7-P6", "scenario": "Some people argue that public transportation should be free for all citizens to encourage its use and reduce traffic. Others believe it should be funded by the people who use it. What is your opinion?", "topic": "Free public transit"},
+            {"id": "T7-P7", "scenario": "Is it better for children to grow up in a small town with a tight-knit community or in a large city with more diverse opportunities? What is your opinion?", "topic": "Small town vs. large city childhood"},
+            {"id": "T7-P8", "scenario": "Some people believe that every citizen should be required to perform one year of community service after high school. Others believe this should be entirely voluntary. What is your opinion?", "topic": "Mandatory community service"},
+            {"id": "T7-P9", "scenario": "Do you think that the government should strictly regulate the amount of sugar in soft drinks to improve public health? Why or why not?", "topic": "Regulating sugar in drinks"},
+            {"id": "T7-P10", "scenario": "In your opinion, is it more important for a city to invest in building more parks and green spaces or in improving public transportation infrastructure?", "topic": "Parks vs. Public Transit investment"}
         ]
     },
     {
@@ -387,7 +422,12 @@ CELPIP_TASKS = [
                 "scenario": "You go to pick up your car from the parking lot after work and find a different car parked in your spot — the same color and model as yours. Your car is nowhere to be seen, but the keys to this other car are sitting on the dashboard.",
                 "situation": "Your car replaced by an identical one",
                 "topic": "Missing car mystery"
-            }
+            },
+            {"id": "T8-P5", "scenario": "While walking through the city center, you see a person walking a full-grown peacock on a leash as if it were a dog. People are staring, but the peacock owner is acting perfectly normal.", "situation": "Person walking a peacock on a leash", "topic": "Unusual pet in public"},
+            {"id": "T8-P6", "scenario": "You enter a local cafe and realize that all the staff and customers are dressed in elaborate 18th-century historical costumes. They are using old-fashioned language, but they are ordering modern lattes and using iPads. What do you say and do?", "situation": "Historical costume cafe with modern tech", "topic": "Time-traveler cafe mystery"},
+            {"id": "T8-P7", "scenario": "You are at a park and see a tree where the leaves are perfectly square and glowing with a soft blue light. A small crowd has gathered, but no one seems to know what is happening.", "situation": "Glowing square-leaved tree", "topic": "Nature anomaly"},
+            {"id": "T8-P8", "scenario": "You are walking down a street and notice a house that is built entirely upside down. The roof is on the ground, and the front door is at the very top, accessible only by a long ladder. People are coming and going as if it were normal.", "situation": "Upside-down house with ladder door", "topic": "Architectural anomaly"},
+            {"id": "T8-P9", "scenario": "You go to a local lake and see a group of people having a picnic on a large, flat rock that is floating three feet above the surface of the water. The rock is not tethered to anything.", "situation": "Floating picnic rock anomaly", "topic": "Physics anomaly"}
         ]
     }
 ]
@@ -420,4 +460,5 @@ def get_full_test_sequence() -> list:
             "prompt": prompt
         })
     return test
+
 

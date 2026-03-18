@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CELPIP Speaking Coach — AI-Powered Test Preparation</title>
+  <title>CELPIP Speaking Coach â€” AI-Powered Test Preparation</title>
   <meta name="description" content="Practice CELPIP Speaking test with AI-powered scoring, real-time speech analysis, and actionable feedback. Achieve CLB 10+ scores.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
   <!-- Header -->
   <header class="app-header">
     <h1>CELPIP Speaking Coach</h1>
-    <p class="subtitle">AI-powered speaking test preparation — target CLB 10+</p>
+    <p class="subtitle">AI-powered speaking test preparation â€” target CLB 10+</p>
     <div id="healthBadge" class="health-badge">
       <span class="health-dot"></span>
       <span id="healthText">Connecting...</span>
@@ -34,6 +34,13 @@
 
   <!-- ============ PRACTICE VIEW ============ -->
   <section id="practiceView">
+    <!-- Task Selector (NEW) -->
+    <div id="taskSelectorContainer" class="task-selector-container">
+      <select id="taskSelect" onchange="selectTask(this.value)">
+        <option value="" disabled selected>Quick Select Task...</option>
+      </select>
+    </div>
+
     <!-- Task Selection -->
     <div id="taskSelection">
       <h2 style="margin-bottom: 16px;">Choose a Speaking Task</h2>
@@ -52,7 +59,7 @@
         <div class="scenario-box" id="scenarioBox"></div>
         
         <div class="tips-box" id="tipsBox">
-          <h4>💡 Tips for this task</h4>
+          <h4>ðŸ’¡ Tips for this task</h4>
           <ul id="tipsList"></ul>
         </div>
 
@@ -69,7 +76,7 @@
         </div>
 
         <div class="btn-group">
-          <button class="btn btn-secondary" onclick="cancelTask()">← Back</button>
+          <button class="btn btn-secondary" onclick="cancelTask()">â† Back</button>
           <button class="btn btn-primary" id="startRecordingBtn" onclick="startRecordingEarly()">Start Speaking Now</button>
         </div>
       </div>
@@ -128,7 +135,7 @@
     <h2 style="margin-bottom: 16px;">Practice History</h2>
     <div id="historyList" class="history-list">
       <div class="progress-empty">
-        <div class="icon">📋</div>
+        <div class="icon">ðŸ“‹</div>
         <p>No practice sessions yet. Start practicing to see your history!</p>
       </div>
     </div>
@@ -175,6 +182,46 @@
       </div>
     </div>
 
+    
+    <!-- Task-by-Task Strategies -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="margin-bottom: 16px; color: var(--accent-info);">Task-by-Task Strategies</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 1: Giving Advice</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Focus on being helpful and warm. Use modal verbs like "should," "ought to," or "might want to." Structure: Acknowledge problem -> 2-3 suggestions with reasons -> Encouraging closing.</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 2: Personal Experience</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Use past tenses accurately. Describe the "Who, What, When, Where" quickly, then focus on the "Why" and your feelings. Aim for a clear narrative arc.</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 3: Describing a Scene</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Use spatial prepositions (foreground, background, adjacent to). Describe actions using present continuous ("is walking," "are sitting"). Mention colors, weather, and atmosphere.</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 4: Making Predictions</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Use "will," "is going to," or "is likely to." Connect your predictions to visual evidence from Task 3. Example: "Since the boy is reaching for the ball, he will probably throw it next."</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 5: Comparing & Persuading</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Acknowledge the other option but emphasize the benefits of your choice. Use comparative adjectives (cheaper, more convenient). Address the "target" person directly by name if given.</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 6: Difficult Situation</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Tone is key. Be polite but firm if complaining, or apologetic if canceling plans. Offer a clear alternative or solution. "I understand the situation, however..."</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 7: Expressing Opinions</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">State your position clearly in the first sentence. Provide 2-3 logical reasons with examples. Acknowledge the counter-argument: "While some might argue X, I believe Y because..."</p>
+        </div>
+        <div class="strategy-item" style="background: var(--bg-glass); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <h4 style="color: var(--text-primary); margin-bottom: 8px;">Task 8: Unusual Situation</h4>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Describe the strange object or event using metaphors if you don't know the word. "It looks like a..." or "It has the shape of a..." Focus on being descriptive to someone who can't see it.</p>
+        </div>
+      </div>
+    </div>
+
     <div class="card" style="margin-bottom: 24px; border-color: var(--accent-warning);">
       <h3 style="margin-bottom: 12px; color: var(--accent-warning);">How to Achieve CLB 10+</h3>
       <ul class="feedback-list improvements" style="margin-top: 12px;">
@@ -182,7 +229,7 @@
         <li>Eliminate filler words completely. Speak at a steady, uninterrupted pace.</li>
         <li>Use highly specific vocabulary (e.g., "devastated" instead of "very sad", "bustling" instead of "busy").</li>
         <li>Ensure smooth transitions and explicit signposting ("First of all", "However", "Consequently").</li>
-        <li>Speak naturally with emotion and dynamic intonation—avoid sounding like a robot.</li>
+        <li>Speak naturally with emotion and dynamic intonationâ€”avoid sounding like a robot.</li>
       </ul>
     </div>
   </section>
@@ -190,9 +237,10 @@
   <!-- ============ PROGRESS VIEW ============ -->
   <section id="progressView" class="hidden">
     <h2 style="margin-bottom: 16px;">Your Progress</h2>
+    <div id="progressCharts" class="progress-charts mb-24"></div>
     <div id="progressContent">
       <div class="progress-empty">
-        <div class="icon">📊</div>
+        <div class="icon">ðŸ“Š</div>
         <p>Complete some practice sessions to track your progress over time!</p>
       </div>
     </div>
@@ -208,3 +256,8 @@
 <script src="/static/app.js"></script>
 </body>
 </html>
+
+
+
+
+
