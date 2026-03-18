@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project-specific
+recordings/*.webm
+recordings/*.wav
+data/celpip_coach.db
+*.db
+
+# OS
+Thumbs.db
+.DS_Store
+
+# GSD phase artifacts (tracked separately)
+.planning/phases/

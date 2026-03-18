@@ -11,6 +11,38 @@ import random
 
 CELPIP_TASKS = [
     {
+        "number": 0,
+        "name": "Practice Task (Unscored)",
+        "description": "This is a warm-up task to help you get comfortable with the microphone and recording. It is NOT scored.",
+        "instructions": "This practice task will help you get used to speaking into the microphone. Talk about the topic below. Remember, this task is NOT scored — it's just for practice. You will have 30 seconds to prepare and 60 seconds to speak.",
+        "prep_time": 30,
+        "response_time": 60,
+        "is_practice": True,
+        "tips": [
+            "Use this time to test your microphone",
+            "Get comfortable with the recording interface",
+            "Practice speaking at a natural pace",
+            "This task is NOT scored — relax and warm up"
+        ],
+        "prompts": [
+            {
+                "id": "T0-P1",
+                "scenario": "Tell me about your favorite hobby or activity that you enjoy doing in your free time. Why do you enjoy it?",
+                "topic": "Favorite hobby"
+            },
+            {
+                "id": "T0-P2",
+                "scenario": "Describe the city or town where you currently live. What do you like about it?",
+                "topic": "Where you live"
+            },
+            {
+                "id": "T0-P3",
+                "scenario": "Talk about a meal or food that you really enjoy. What makes it special to you?",
+                "topic": "Favorite food"
+            }
+        ]
+    },
+    {
         "number": 1,
         "name": "Giving Advice",
         "description": "Give advice to someone about a specific situation.",
@@ -367,12 +399,17 @@ def get_task_with_prompt(task_number: int) -> dict | None:
 
 
 def get_full_test_sequence() -> list:
-    """Get all 8 tasks with random prompts for a full test simulation."""
+    """Get all 8 scored tasks with random prompts for a full test simulation.
+    Excludes Practice Task 0 (unscored warm-up).
+    """
     test = []
     for task in CELPIP_TASKS:
+        if task.get("is_practice", False):
+            continue  # Skip unscored practice task
         prompt = random.choice(task["prompts"])
         test.append({
             **{k: v for k, v in task.items() if k != "prompts"},
             "prompt": prompt
         })
     return test
+

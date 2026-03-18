@@ -92,17 +92,51 @@ function switchView(view) {
 // ============================================================
 function renderTaskGrid() {
   const grid = document.getElementById('taskGrid');
-  grid.innerHTML = state.tasks.map(task => `
-    <div class="task-card" onclick="selectTask(${task.number})">
-      <div class="task-number">${task.number}</div>
+  let html = state.tasks.map(task => `
+    <div class="task-card ${task.is_practice ? 'practice-task' : ''}" onclick="selectTask(${task.number})">
+      <div class="task-number">${task.number === 0 ? '🎯' : task.number}</div>
       <div class="task-name">${task.name}</div>
       <div class="task-desc">${task.description}</div>
       <div class="task-timing">
+        ${task.is_practice ? '<span class="practice-badge">UNSCORED</span>' : ''}
         <span>⏱ ${task.prep_time}s prep</span>
         <span>🎤 ${task.response_time}s speak</span>
       </div>
     </div>
   `).join('');
+  
+  // Add 'Fetch New Tasks' card
+  html += `
+    <div class="task-card fetch-tasks-card" onclick="fetchNewTasks()">
+      <div class="task-number">🔄</div>
+      <div class="task-name">Fetch New Tasks</div>
+      <div class="task-desc">Get fresh prompts and practice scenarios to keep your preparation challenging.</div>
+      <div class="task-timing">
+        <span style="color: var(--accent-primary); font-weight: 600;">+ Generate More</span>
+      </div>
+    </div>
+  `;
+  
+  grid.innerHTML = html;
+}
+
+async function fetchNewTasks() {
+  try {
+    const btn = document.querySelector('.fetch-tasks-card');
+    btn.innerHTML = '<div class="text-center" style="width: 100%;"><div class="spinner" style="margin-bottom:12px;"></div><div>Generating new prompts...</div></div>';
+    
+    const res = await fetch('/api/tasks/generate', { method: 'POST' });
+    const data = await res.json();
+    
+    if (data.status === 'success') {
+      alert(data.message);
+      await loadTasks(); // Reload the task list
+    }
+  } catch (e) {
+    console.error('Failed to fetch new tasks:', e);
+    alert('Failed to fetch new tasks. Make sure the server is running.');
+    renderTaskGrid(); // Reset loading state
+  }
 }
 
 // ============================================================
@@ -330,30 +364,33 @@ function showResults(data) {
   const feedback = data.feedback || {};
   const overall = scores.overall || 0;
   const clb = scores.clb_level || 0;
+  const levelLabel = scores.level_label || '';
+  const isPractice = state.currentTask && state.currentTask.is_practice;
 
   let html = `
     <div class="score-dashboard">
       <div class="overall-score">
-        <div class="score-circle">
-          <div class="score-value">${overall.toFixed(1)}</div>
-          <div class="score-label">CELPIP</div>
+        <div class="score-circle ${overall >= 10 ? 'score-excellent' : overall >= 7 ? 'score-good' : overall >= 4 ? 'score-fair' : 'score-low'}">
+          <div class="score-value">${isPractice ? '—' : overall.toFixed(1)}</div>
+          <div class="score-label">${isPractice ? 'PRACTICE' : 'CELPIP'}</div>
         </div>
-        <div class="clb-badge">CLB Level ${clb}</div>
+        ${isPractice ? '<div class="clb-badge" style="background: var(--bg-tertiary);">Unscored Warm-Up</div>' : `<div class="clb-badge">CLB ${clb} — ${levelLabel}</div>`}
         ${scores.level_descriptor ? `<p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.9rem;">${scores.level_descriptor}</p>` : ''}
       </div>
 
-      <div class="dimension-scores">
+      ${isPractice ? '' : `<div class="dimension-scores">
         ${renderDimensionCard('Content/Coherence', scores.content_coherence)}
         ${renderDimensionCard('Vocabulary', scores.vocabulary)}
         ${renderDimensionCard('Listenability', scores.listenability)}
         ${renderDimensionCard('Task Fulfillment', scores.task_fulfillment)}
-      </div>
+      </div>`}
 
-      ${renderBenchmark(feedback.benchmark)}
-      ${renderPriorities(feedback.priorities)}
-      ${renderFeedbackCards(feedback)}
+      ${isPractice ? '' : renderBenchmark(feedback.benchmark)}
+      ${isPractice ? '' : renderPriorities(feedback.priorities)}
+      ${isPractice ? '' : renderLevelAdvice(feedback.level_advice)}
+      ${isPractice ? '' : renderFeedbackCards(feedback)}
       ${renderTranscript(data.transcript)}
-      ${renderModelAnswer(feedback.model_answer)}
+      ${isPractice ? '' : renderModelAnswer(feedback.model_answer)}
     </div>
 
     <div class="btn-group" style="margin-top: 32px;">
@@ -405,10 +442,20 @@ function renderPriorities(priorities) {
         <div class="priority-item">
           <span class="priority-number">${i + 1}</span>
           <div class="priority-text">
-            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)})</span> — ${p.action}
+            <span class="priority-dim">${p.dimension} (${p.score.toFixed(1)}/12${p.gap_to_10 ? ` · ${p.gap_to_10.toFixed(1)} pts to CLB 10` : ''})</span> — ${p.action}
           </div>
         </div>
       `).join('')}
+    </div>
+  `;
+}
+
+function renderLevelAdvice(advice) {
+  if (!advice) return '';
+  return `
+    <div class="level-advice-box">
+      <h4>📚 Coaching Advice for Your Level</h4>
+      <p>${advice}</p>
     </div>
   `;
 }
@@ -566,6 +613,15 @@ function showFullTestResults() {
         ${renderDimensionCard('Task Fulfillment', totals.task_fulfillment)}
       </div>
     </div>
+    
+    <div class="level-advice-box" style="margin-top: 24px; text-align: left;">
+      <h4>📋 Full Test Evaluation Summary</h4>
+      <p>You scored an average of <strong>CLB ${clb}</strong> across all 8 tasks. 
+      ${clb >= 9 ? 'Excellent work! You are scoring at a very high level. Focus on minor vocabulary enhancements and eliminating any remaining hesitations to reach CLB 10+ consistently.' : 
+        clb >= 7 ? 'Good job! You have a solid foundation. To reach CLB 9+, focus on using more complex grammatical structures and reducing filler words like "um" and "uh".' : 
+        'Keep practicing! Focus on completing the task requirements fully and improving your fluency by minimizing long pauses.'}
+      </p>
+    </div>
 
     <h3 style="margin: 24px 0 16px;">Per-Task Scores</h3>
     <div class="history-list">
@@ -633,7 +689,7 @@ async function loadHistory() {
 
 function getTaskName(num) {
   const names = {
-    1: 'Giving Advice', 2: 'Personal Experience', 3: 'Describing a Scene',
+    0: 'Practice (Unscored)', 1: 'Giving Advice', 2: 'Personal Experience', 3: 'Describing a Scene',
     4: 'Making Predictions', 5: 'Comparing & Persuading', 6: 'Difficult Situation',
     7: 'Expressing Opinions', 8: 'Unusual Situation'
   };

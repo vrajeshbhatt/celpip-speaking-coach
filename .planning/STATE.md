@@ -5,18 +5,44 @@
 See: .planning/PROJECT.md (updated 2026-03-17)
 
 **Core value:** Accurately simulate CELPIP Speaking exam and provide real feedback on every scoring dimension
-**Current focus:** Phase 1 — Foundation & Audio Pipeline
+**Current focus:** Phase 4 — Scoring & Feedback Engine (Major Overhaul)
 
 ## Current Phase
 
-**Phase 1: Foundation & Audio Pipeline**
-- Status: Not started
-- Requirements: FOUND-01, FOUND-02, FOUND-03, FOUND-04
-- Plans: None created yet
+**Phase 4: Scoring & Feedback Engine**
+- Status: In progress
+- Requirements: SCOR-01 through SCOR-05, FEED-01 through FEED-05
+- Plans: Rewrite scoring with official CELPIP rubric alignment, make stricter
 
 ## Phase History
 
-(No phases completed yet)
+### Phase 1: Foundation & Audio Pipeline ✓
+- FastAPI backend with Whisper transcription pipeline
+- Audio upload, WAV conversion, transcription working
+- Code: `app.py`
+
+### Phase 2: CELPIP Task Engine ✓
+- All 8 tasks with correct timing and 33 prompts
+- Practice mode and full test mode implemented
+- Code: `data/celpip_tasks.py`
+
+### Phase 3: Speech Analysis Engine ✓
+- Parselmouth prosody analysis, librosa spectral features
+- Fluency analysis, content analysis, pronunciation scoring
+- Code: `speech_analyzer.py`
+
+### Phase 4: Scoring & Feedback Engine — IN PROGRESS
+- Initial scoring engine exists but too lenient
+- Overhauling with official CELPIP rubric research
+- Code: `scoring_engine.py`
+
+### Phase 5: Frontend UI — Code exists, needs review
+- HTML/CSS/JS frontend with task flow, timers, recording
+- Code: `static/`
+
+### Phase 6: Progress Tracking — Code exists, needs verification
+- SQLite storage, history and progress APIs
+- Code: Part of `app.py`
 
 ## Key Context
 
@@ -26,4 +52,4 @@ See: .planning/PROJECT.md (updated 2026-03-17)
 - Granularity: Standard (6 phases)
 
 ---
-*Last updated: 2026-03-17 — project initialized*
+*Last updated: 2026-03-17 — scoring overhaul in progress*

@@ -172,6 +172,34 @@ async def get_full_test():
     return {"tasks": get_full_test_sequence()}
 
 
+@app.post("/api/tasks/generate")
+async def generate_new_tasks():
+    """Fetch/generate new practice prompts for the task library.
+    In a full production version, this would call an LLM API to generate fresh
+    scenarios aligned with CELPIP standards. For now, we simulate this.
+    """
+    import random
+    from data.celpip_tasks import CELPIP_TASKS
+    
+    # Simulate API delay
+    await asyncio.sleep(2)
+    
+    # Add a mock "newly fetched" prompt to a random task
+    new_prompt = {
+        "id": f"NEW-{random.randint(1000, 9999)}",
+        "scenario": f"New Challenge Generated at {datetime.now().time().strftime('%H:%M:%S')}: Talk about a recent technological change that has affected your daily routine.",
+        "topic": "Technology impact"
+    }
+    
+    # Add it to Task 2 (Personal Experience) just as an example
+    for task in CELPIP_TASKS:
+        if task["number"] == 2:
+            task["prompts"].append(new_prompt)
+            break
+            
+    return {"status": "success", "message": "Successfully fetched 1 fresh practice prompt and added it to Task 2!"}
+
+
 # ---------------------------------------------------------------------------
 # Audio Upload & Transcription API
 # ---------------------------------------------------------------------------

@@ -951,6 +951,50 @@ h4 { font-size: 1rem; }
   }
 }
 
+/* ---- Practice Task ---- */
+.practice-task {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+.practice-task::before {
+  background: linear-gradient(90deg, var(--accent-info), #60a5fa);
+  opacity: 1;
+}
+.practice-badge {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(59, 130, 246, 0.15);
+  color: var(--accent-info);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* ---- Level Advice Box ---- */
+.level-advice-box {
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-top: 20px;
+}
+.level-advice-box h4 {
+  color: var(--accent-secondary);
+  margin-bottom: 10px;
+}
+.level-advice-box p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+/* ---- Score Color Classes ---- */
+.score-excellent { box-shadow: var(--shadow-lg), 0 0 40px rgba(34, 197, 94, 0.25); }
+.score-excellent::before { background: var(--bg-primary); }
+.score-good { box-shadow: var(--shadow-lg), var(--shadow-glow); }
+.score-fair { box-shadow: var(--shadow-lg), 0 0 40px rgba(245, 158, 11, 0.15); }
+.score-low { box-shadow: var(--shadow-lg), 0 0 40px rgba(239, 68, 68, 0.15); }
+
 /* ---- Utility ---- */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
@@ -958,3 +1002,4 @@ h4 { font-size: 1rem; }
 .mt-24 { margin-top: 24px; }
 .mb-16 { margin-bottom: 16px; }
 .gap-12 { gap: 12px; }
+
